@@ -2,7 +2,7 @@
     <x-slot name="header">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0"> Top Navigation <small>Example 3.0</small></h1>
+                <h1 class="m-0"> Bem vindo(a) <small>{{Auth::user()->name}}</small></h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
@@ -17,61 +17,106 @@
     <div class="content">
         <div class="container">
             <div class="row">
-                <div class="col-lg-6">
+                <div class="col-lg-12">
                     <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
+                        <div class="card-header border-transparent">
+                            <h3 class="card-title">Minhas contas</h3>
 
-                            <p class="card-text">
-                                Some quick example text to build on the card title and make up the bulk of the card's
-                                content.
-                            </p>
-
-                            <a href="#" class="card-link">Card link</a>
-                            <a href="#" class="card-link">Another link</a>
                         </div>
+                        <!-- /.card-header -->
+                        <div class="card-body p-0">
+                            <div class="table-responsive">
+                                <table class="table m-0">
+                                    <thead>
+                                        <tr>
+                                            <th>Item</th>
+                                            <th>Data vencimento</th>
+                                            <th>Tipo</th>
+                                            <th>Valor</th>
+                                            <th>Fornecedor/Cliente</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Conta tal</td>
+                                            <td>12/12/2021</td>
+                                            <td><span class="badge badge-info">A receber</span></td>
+                                            <td>
+                                                <div class="sparkbar" data-color="#00a65a" data-height="20">
+                                                    123,99
+                                                </div>
+                                            </td>
+                                            <td>Fulano de tal</td>
+                                            <td>
+                                                <a href="#" data-toggle="modal" data-target="#mdlExcluir" data-id=""
+                                                class="nav-link float-right deleteContact">
+                                                <i class="far fa-trash-alt"></i>
+                                                </a>
+                                                <a href="#" data-toggle="modal" data-target="#modal-lg-edit" data-contact=""
+                                                class="nav-link float-right modalEdit">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                            </td>
+
+                                        </tr>
+                                        <tr>
+                                            <td>Conta tal</td>
+                                            <td>12/12/2021</td>
+                                            <td><span class="badge badge-warning">A pagar</span></td>
+                                            <td>
+                                                <div class="sparkbar" data-color="#00a65a" data-height="20">
+                                                    123,99
+                                                </div>
+                                            </td>
+                                            <td>Fulano de tal</td>
+                                            <td>
+                                                <a href="#" data-toggle="modal" data-target="#mdlExcluir" data-id=""
+                                                class="nav-link float-right deleteContact">
+                                                <i class="far fa-trash-alt"></i>
+                                                </a>
+                                                <a href="#" data-toggle="modal" data-target="#modal-lg-edit" data-contact=""
+                                                class="nav-link float-right modalEdit">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                            </td>
+
+                                        </tr>
+                                        <tr>
+                                            <td>Conta tal</td>
+                                            <td>12/12/2021</td>
+                                            <td><span class="badge badge-info">A receber</span></td>
+                                            <td>
+                                                <div class="sparkbar" data-color="#00a65a" data-height="20">
+                                                    123,99
+                                                </div>
+                                            </td>
+                                            <td>Fulano de tal</td>
+                                            <td>
+                                                <a href="#" data-toggle="modal" data-target="#mdlExcluir" data-id=""
+                                                class="nav-link float-right deleteContact">
+                                                <i class="far fa-trash-alt"></i>
+                                                </a>
+                                                <a href="#" data-toggle="modal" data-target="#modal-lg-edit" data-contact=""
+                                                class="nav-link float-right modalEdit">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                            </td>
+
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /.table-responsive -->
+                        </div>
+                        <!-- /.card-body -->
+                        <div class="card-footer clearfix">
+                            <a href="{{route('account.create')}}" class="btn btn-primary float-right"><i class="fas fa-plus"></i> Nova conta</a>
+                        </div>
+                        <!-- /.card-footer -->
                     </div>
-
-                    <div class="card card-primary card-outline">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-
-                            <p class="card-text">
-                                Some quick example text to build on the card title and make up the bulk of the card's
-                                content.
-                            </p>
-                            <a href="#" class="card-link">Card link</a>
-                            <a href="#" class="card-link">Another link</a>
-                        </div>
-                    </div><!-- /.card -->
-                </div>
-                <!-- /.col-md-6 -->
-                <div class="col-lg-6">
-                    <div class="card">
-                        <div class="card-header">
-                            <h5 class="card-title m-0">Featured</h5>
-                        </div>
-                        <div class="card-body">
-                            <h6 class="card-title">Special title treatment</h6>
-
-                            <p class="card-text">With supporting text below as a natural lead-in to additional
-                                content.</p>
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
-                        </div>
-                    </div>
-
-                    <div class="card card-primary card-outline">
-                        <div class="card-header">
-                            <h5 class="card-title m-0">Featured</h5>
-                        </div>
-                        <div class="card-body">
-                            <h6 class="card-title">Special title treatment</h6>
-
-                            <p class="card-text">With supporting text below as a natural lead-in to additional
-                                content.</p>
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
-                        </div>
-                    </div>
+                    <!-- /.card -->
                 </div>
                 <!-- /.col-md-6 -->
             </div>
