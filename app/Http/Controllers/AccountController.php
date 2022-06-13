@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreateRequest;
 use Illuminate\Http\Request;
 
 class AccountController extends Controller
@@ -32,9 +33,10 @@ class AccountController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateRequest $request)
     {
-        //
+        dd($request->all());
+
     }
 
     /**
