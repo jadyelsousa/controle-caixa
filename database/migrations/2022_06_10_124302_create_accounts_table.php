@@ -20,7 +20,7 @@ return new class extends Migration
             $table->date('data');
             $table->decimal('valor',15,2);
             $table->string('razao_social');
-            $table->string('cpf_cpnj');
+            $table->string('cpf_cnpj');
             $table->unsignedBigInteger('id_usuario');
             $table->foreign('id_usuario')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();

@@ -6,9 +6,8 @@
             </div><!-- /.col -->
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item"><a href="#">Layout</a></li>
-                    <li class="breadcrumb-item active">Top Navigation</li>
+                    <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
+                    <li class="breadcrumb-item active">Cadastro</li>
                 </ol>
             </div><!-- /.col -->
         </div><!-- /.row -->
@@ -31,15 +30,16 @@
                                         <div class="form-group">
                                             <label for="conta">Conta</label>
                                             <input type="text" class="form-control" id="conta" name="conta"
-                                                placeholder="Breve descrição da conta">
+                                                value="{{ old('conta') }}" placeholder="Breve descrição da conta">
                                         </div>
                                     </div>
                                     <!-- /.col -->
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label>Tipo</label>
-                                            <select  name="tipo" id="tipo" class="form-control select2" style="width: 100%;">
-                                                <option value="" >Selecione</option>
+                                            <select name="tipo" id="tipo" class="form-control select2"
+                                                style="width: 100%;">
+                                                <option value="">Selecione</option>
                                                 <option value="1">A pagar</option>
                                                 <option value="2">A receber</option>
                                             </select>
@@ -50,7 +50,7 @@
                                         <div class="form-group">
                                             <label for="data">Data de vencimento</label>
                                             <div class="input-group date" data-target-input="nearest">
-                                                <input type="date" id="data" name="data"
+                                                <input type="date" id="data" name="data" value="{{ old('data') }}"
                                                     class="form-control datetimepicker-input"
                                                     data-target="#reservationdatetime" />
                                                 <div class="input-group-append" data-target="#reservationdatetime"
@@ -67,7 +67,8 @@
                                         <div class="form-group">
                                             <label>Fornecedor/Cliente</label>
                                             <input type="text" class="form-control" name="fornecedor" id="fornecedor"
-                                                placeholder="Informe o Fornecedor ou Cliente">
+                                                placeholder="Informe o Fornecedor ou Cliente"
+                                                value="{{ old('fornecedor') }}">
                                         </div>
                                     </div>
                                     <!-- /.col -->
@@ -75,7 +76,7 @@
                                         <div class="form-group">
                                             <label>CPF/CNPJ</label>
                                             <input type="text" class="form-control" name="cpf_cnpj" id="cpf_cnpj"
-                                                placeholder="Ex.:123.123.123-12">
+                                                value="{{ old('cpf_cnpj') }}" placeholder="Ex.:123.123.123-12">
                                         </div>
                                     </div>
                                     <!-- /.col -->
@@ -83,7 +84,7 @@
                                         <div class="form-group">
                                             <label>Valor</label>
                                             <input type="text" name="valor" id="valor" class="form-control"
-                                                placeholder="0,00">
+                                                value="{{ old('valor') }}" placeholder="0,00">
                                         </div>
                                     </div>
                                     <!-- /.col -->
@@ -106,127 +107,101 @@
     <!-- /.content -->
 
 
-<script>
-        $(function () {
-       var $dp1 = $("#reservationdatetime");
-      $(document).ready(function () {
 
-      $dp1.datepicker({
-        changeYear: true,
-        changeMonth: true,
-            minDate: '0',
-        dateFormat: "yy-m-dd",
-        yearRange: "-100:+20",
-      });
-     });
-
-            });
-</script>
     <script>
+        $("#valor").keyup(function() {
 
-$("#valor").keyup(function() {
-
-    var v = $("#valor").val().replace(/\D/g,'');
-	v = (v/100).toFixed(2) + '';
-	v = v.replace(".", ",");
-	v = v.replace(/(\d)(\d{3})(\d{3}),/g, "$1.$2.$3,");
-	v = v.replace(/(\d)(\d{3}),/g, "$1.$2,");
-	$("#valor").val(v);
-});
-
-
-
+            var v = $("#valor").val().replace(/\D/g, '');
+            v = (v / 100).toFixed(2) + '';
+            v = v.replace(".", ",");
+            v = v.replace(/(\d)(\d{3})(\d{3}),/g, "$1.$2.$3,");
+            v = v.replace(/(\d)(\d{3}),/g, "$1.$2,");
+            $("#valor").val(v);
+        });
     </script>
-<script>
-
-
-
-
-    $("#cpf_cnpj").keydown(function(){
-    try {
-        $("#cpf_cnpj").unmask();
-    } catch (e) {}
-
-    var tamanho = $("#cpf_cnpj").val().length;
-
-    if(tamanho < 11){
-        $("#cpf_cnpj").mask("999.999.999-99");
-    } else {
-        $("#cpf_cnpj").mask("99.999.999/9999-99");
-    }
-
-    // ajustando foco
-    var elem = this;
-    setTimeout(function(){
-        // mudo a posição do seletor
-        elem.selectionStart = elem.selectionEnd = 10000;
-    }, 0);
-    // reaplico o valor para mudar o foco
-    var currentValue = $(this).val();
-    $(this).val('');
-    $(this).val(currentValue);
-});
-</script>
     <script>
-$(function() {
+        $("#cpf_cnpj").keydown(function() {
+            try {
+                $("#cpf_cnpj").unmask();
+            } catch (e) {}
 
-$('#cadForm').validate({
-    rules: {
-        conta: {
-            required: true,
-        },
-        tipo: {
-            required: true
-        },
-        data: {
-            required: true
-        },
-        fornecedor: {
-            required: true
-        },
-        cpf_cnpj: {
-            required: true
-        },
-        valor: {
-            required: true
-        },
-    },
-    messages: {
-        conta: {
-            required: "Preencha esse campo!",
-        },
-        tipo: {
-            required: "Preencha esse campo!"
-        },
-        data: {
-            required: "Preencha esse campo!"
-        },
-        fornecedor: {
-            required: "Preencha esse campo!"
-        },
-        cpf_cnpj: {
-            required: "Preencha esse campo!"
-        },
-        valor: {
-            required: "Preencha esse campo!"
-        },
-    },
-    errorElement: 'span',
-    errorPlacement: function(error, element) {
-        error.addClass('invalid-feedback');
-        element.closest('.form-group').append(error);
-    },
-    highlight: function(element, errorClass, validClass) {
-        $(element).addClass('is-invalid');
-    },
-    unhighlight: function(element, errorClass, validClass) {
-        $(element).removeClass('is-invalid');
-    }
-});
-});
+            var tamanho = $("#cpf_cnpj").val().length;
 
+            if (tamanho < 11) {
+                $("#cpf_cnpj").mask("999.999.999-99");
+            } else {
+                $("#cpf_cnpj").mask("99.999.999/9999-99");
+            }
 
+            // ajustando foco
+            var elem = this;
+            setTimeout(function() {
+                // mudo a posição do seletor
+                elem.selectionStart = elem.selectionEnd = 10000;
+            }, 0);
+            // reaplico o valor para mudar o foco
+            var currentValue = $(this).val();
+            $(this).val('');
+            $(this).val(currentValue);
+        });
+    </script>
+    <script>
+        $(function() {
 
+            $('#cadForm').validate({
+                rules: {
+                    conta: {
+                        required: true,
+                    },
+                    tipo: {
+                        required: true
+                    },
+                    data: {
+                        required: true
+                    },
+                    fornecedor: {
+                        required: true
+                    },
+                    cpf_cnpj: {
+                        required: true
+                    },
+                    valor: {
+                        required: true
+                    },
+                },
+                messages: {
+                    conta: {
+                        required: "Preencha esse campo!",
+                    },
+                    tipo: {
+                        required: "Preencha esse campo!"
+                    },
+                    data: {
+                        required: "Preencha esse campo!"
+                    },
+                    fornecedor: {
+                        required: "Preencha esse campo!"
+                    },
+                    cpf_cnpj: {
+                        required: "Preencha esse campo!"
+                    },
+                    valor: {
+                        required: "Preencha esse campo!"
+                    },
+                },
+                errorElement: 'span',
+                errorPlacement: function(error, element) {
+                    error.addClass('invalid-feedback');
+                    element.closest('.form-group').append(error);
+                },
+                highlight: function(element, errorClass, validClass) {
+                    $(element).addClass('is-invalid');
+                },
+                unhighlight: function(element, errorClass, validClass) {
+                    $(element).removeClass('is-invalid');
+                }
+            });
+        });
     </script>
 
 </x-app-layout>

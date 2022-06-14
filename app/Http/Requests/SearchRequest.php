@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateRequest extends FormRequest
+class SearchRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,13 +24,7 @@ class CreateRequest extends FormRequest
     public function rules()
     {
         return [
-            'conta' => 'required',
-            'tipo' => 'required',
-            'data' => 'required|date|after_or_equal:today',
-            'fornecedor' => 'required',
-            'cpf_cnpj' => 'required',
-            'valor' => 'required',
-
+            'search'=> 'required'
         ];
     }
 }

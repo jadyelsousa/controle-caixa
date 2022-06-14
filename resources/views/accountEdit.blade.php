@@ -6,9 +6,8 @@
             </div><!-- /.col -->
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item"><a href="#">Layout</a></li>
-                    <li class="breadcrumb-item active">Top Navigation</li>
+                    <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
+                    <li class="breadcrumb-item active">Edição</li>
                 </ol>
             </div><!-- /.col -->
         </div><!-- /.row -->
@@ -21,7 +20,7 @@
                     <x-auth-session-status class="mb-4" :status="session('status')" />
                     <x-auth-validation-errors class="mb-4" :errors="$errors" />
                     <div class="card card-default">
-                        <form id="cadForm" action="{{ route('account.update',$account->id) }}" method="post">
+                        <form id="cadForm" action="{{ route('account.update', $account->id) }}" method="post">
                             @csrf
                             @method('PUT')
                             <div class="card-body">
@@ -112,13 +111,12 @@
     <!-- /.content -->
 
     <script>
-
         var e = $("#valor").val().replace(/\D/g, '');
         e = (e / 100).toFixed(2) + '';
-            e = e.replace(".", ",");
-            e = e.replace(/(\d)(\d{3})(\d{3}),/g, "$1.$2.$3,");
-            e = e.replace(/(\d)(\d{3}),/g, "$1.$2,");
-            $("#valor").val(e);
+        e = e.replace(".", ",");
+        e = e.replace(/(\d)(\d{3})(\d{3}),/g, "$1.$2.$3,");
+        e = e.replace(/(\d)(\d{3}),/g, "$1.$2,");
+        $("#valor").val(e);
 
         $("#valor").keyup(function() {
 

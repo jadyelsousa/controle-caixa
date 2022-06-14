@@ -11,27 +11,34 @@
           </button>
 
           <div class="collapse navbar-collapse order-3" id="navbarCollapse">
-              <!-- Left navbar links -->
-              <ul class="navbar-nav">
-                  <li class="nav-item">
-                      <a href="index3.html" class="nav-link">Home</a>
-                  </li>
-                  <li class="nav-item">
-                      <a href="#" class="nav-link">Contact</a>
-                  </li>
-              </ul>
+
 
               <!-- SEARCH FORM -->
-              <form class="form-inline ml-0 ml-md-3">
+              <form class="form-inline ml-0 ml-md-3" action="{{ route('account.search') }}" method="post">
+                  @csrf
                   <div class="input-group input-group-sm">
-                      <input class="form-control form-control-navbar" type="search" placeholder="Search"
-                          aria-label="Search">
+                      <input class="form-control form-control-navbar" type="search" name="search" id="search"
+                          placeholder="Buscar" required aria-label="Buscar">
                       <div class="input-group-append">
                           <button class="btn btn-navbar" type="submit">
                               <i class="fas fa-search"></i>
                           </button>
                       </div>
                   </div>
+                  {{-- código de autocomplete na pesquisa --}}
+                  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>
+                  <script type="text/javascript">
+                      var route = "{{ url('searchSuggestion') }}";
+                      $('#search').typeahead({
+                          source: function(query, process) {
+                              return $.get(route, {
+                                  term: query
+                              }, function(data) {
+                                  return process(data);
+                              });
+                          }
+                      });
+                  </script>
               </form>
           </div>
 
@@ -48,9 +55,6 @@
                           this.value='Enviando';
                           this.closest('form').submit(); "><i class="fas fa-sign-out-alt"></i>
                           <span class="d-none d-md-inline">Sair</span>
-
-
-
                       </button>
                   </form>
               </li>
