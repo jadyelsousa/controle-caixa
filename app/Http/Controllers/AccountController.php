@@ -3,84 +3,74 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateRequest;
+use App\Models\Account;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AccountController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
-        //
+        $accounts = Account::where('id_usuario',Auth::user()->id)->get();
+        return view('dashboard',compact('accounts'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function create()
     {
         return view('accountCreate');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(CreateRequest $request)
     {
-        dd($request->all());
+        if ($request->data < now()) {
+            return back()->withErrors([
+                'Erro' => 'Data inválida!',
+            ]);
+        }
+
+       $account = new Account();
+       $account->descricao = $request->conta;
+       $account->tipo = $request->tipo;
+       $account->data = $request->data;
+       $account->razao_social = $request->fornecedor;
+       $account->cpf_cpnj = preg_replace("/[^0-9]/", "", $request->cpf_cnpj);
+       $account->valor = preg_replace('/\D/', '.', $request->valor);
+       $account->id_usuario = Auth::user()->id;
+       $account->save();
+       return redirect()->route('dashboard')->with('status', 'Conta cadastrada com sucesso!');
 
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+
+    public function edit(Account $account)
     {
-        //
+        return view('accountEdit',compact('account'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+
+    public function update(CreateRequest $request, Account $account)
     {
-        //
+
+       $account->descricao = $request->conta;
+       $account->tipo = $request->tipo;
+       $account->data = $request->data;
+       $account->razao_social = $request->fornecedor;
+       $account->cpf_cpnj = preg_replace("/[^0-9]/", "", $request->cpf_cnpj);
+       $account->valor = preg_replace('/\D/', '.', $request->valor);
+       $account->update();
+       return redirect()->route('dashboard')->with('status', 'Conta editada com sucesso!');
+
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        $account = Account::findOrFail($request->id);
+        $account->delete();
+        return redirect()->route('dashboard')->with('status', 'Conta deletada com sucesso!');
+
     }
 }

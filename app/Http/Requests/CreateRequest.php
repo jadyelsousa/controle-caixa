@@ -28,7 +28,7 @@ class CreateRequest extends FormRequest
             'tipo' => 'required',
             'data' => 'required',
             'fornecedor' => 'required',
-            'cpf_cnpf' => 'required',
+            'cpf_cnpj' => 'required',
             'valor' => 'required',
 
         ];

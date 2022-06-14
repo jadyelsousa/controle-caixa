@@ -15,20 +15,18 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('login');
+    return view('auth.login');
 })->middleware('guest');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
-
-Route::controller(AccountController::class)->prefix('account')->group(function () {
-    Route::get('/create', 'create')->middleware(['auth'])->name('account.create');
-    Route::post('/store', 'store')->middleware(['auth'])->name('account.store');
-    Route::get('/searchSuggestion', 'searchSuggestion')->middleware(['auth'])->name('account.searchSuggestion');
-    Route::any('/search', 'search')->middleware(['auth'])->name('account.search');
-    Route::post('/update', 'update')->middleware(['auth'])->name('account.update');
-    Route::delete('/destroy', 'destroy')->middleware(['auth'])->name('account.destroy');
+Route::controller(AccountController::class)->middleware(['auth'])->group(function () {
+    Route::get('/dashboard', 'index')->name('dashboard');
+    Route::get('/create', 'create')->name('account.create');
+    Route::post('/store', 'store')->name('account.store');
+    Route::get('/edit/{account}', 'edit')->name('account.edit');
+    Route::put('/update/{account}', 'update')->name('account.update');
+    Route::get('/searchSuggestion', 'searchSuggestion')->name('account.searchSuggestion');
+    Route::any('/search', 'search')->name('account.search');
+    Route::delete('/destroy', 'destroy')->name('account.destroy');
 });
 
 require __DIR__.'/auth.php';

@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('descricao');
             $table->integer('tipo');
             $table->date('data');
-            $table->decimal('valor',10,2);
+            $table->decimal('valor',15,2);
             $table->string('razao_social');
             $table->string('cpf_cpnj');
             $table->unsignedBigInteger('id_usuario');
