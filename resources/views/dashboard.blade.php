@@ -114,7 +114,7 @@
                     <form class="needs-validation" action="{{ route('account.destroy') }}" method="POST">
                         @csrf
                         @method('DELETE')
-                        <input type="hidden" name="contact" id="id_account" class="recipient-name">
+                        <input type="hidden" name="id_account" id="id_account" class="recipient-name">
                         <br />
                         <span style="font-size: 30px; color: #595959"><b>Exclusão de conta</b></span><br />
                         <b style="font-size: 20px" class="text-danger">Tem certeza que deseja apagar essa
@@ -129,18 +129,5 @@
         </div>
     </div>
     <!-- fim do modal-->
-
-    <script>
-        // script para passar valor da conta para modal de exclusão
-
-        $(document).on('click', '.delete', function() {
-            var id = $(this).attr('data-id');
-            // pega o id da conta ao clicar no botão, e adiciona ao input id_account
-            $('#id_account').val(id);
-
-            $('#mdlExcluir').modal('show');
-        });
-        x
-    </script>
-
+    <script src="../../dist/js/DashboardFile.js"></script>
 </x-app-layout>

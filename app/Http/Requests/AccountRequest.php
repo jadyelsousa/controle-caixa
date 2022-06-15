@@ -26,9 +26,9 @@ class AccountRequest extends FormRequest
         return [
             'conta' => 'required',
             'tipo' => 'required',
-            'data' => 'required',
+            'data' => 'required|date_format:d/m/Y|after_or_equal:today',
             'fornecedor' => 'required',
-            'cpf_cnpj' => 'required',
+            'cpf_cnpj' => 'required|cpf_cnpj',
             'valor' => 'required|regex:/^(\d{1,3}\.)*?(\d{1,3}),\d{2}$/',
 
         ];

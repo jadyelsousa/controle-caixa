@@ -67,7 +67,7 @@ class AccountController extends Controller
 
     public function destroy(Request $request)
     {
-        $account = Account::findOrFail($request->id); // encontra a conta selecionada e apaga
+        $account = Account::findOrFail($request->id_account); // encontra a conta selecionada e apaga
         $account->delete();
         return redirect()->route('dashboard')->with('status', 'Conta deletada com sucesso!');
     }

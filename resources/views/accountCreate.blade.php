@@ -78,7 +78,7 @@
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label>CPF/CNPJ</label>
-                                            <input type="text" class="form-control" name="cpf_cnpj" id="cpf_cnpj"
+                                            <input type="text" class="form-control cpf_cnpj" name="cpf_cnpj" id="cpf_cnpj" onblur="validaCpfCnpj(this.value)"
                                                 value="{{ old('cpf_cnpj') }}" placeholder="Ex.:123.123.123-12">
                                         </div>
                                     </div>
@@ -109,8 +109,6 @@
         </div><!-- /.container-fluid -->
     </div>
     <!-- /.content -->
-    <!-- InputMask -->
     <script src="../../dist/js/AccountValidation.js"></script>
-
 
 </x-app-layout>

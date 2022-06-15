@@ -56,7 +56,7 @@
                                             <div class="input-group date" id="reservationdatetime"
                                                 data-target-input="nearest">
                                                 <input type="text" id="data" name="data"
-                                                    value="{{ \Carbon\Carbon::parse($account->data)->format('d/M/Y') }}"
+                                                    value="{{ \Carbon\Carbon::parse($account->data)->format('d/m/Y') }}"
                                                     class="form-control datetimepicker-input"
                                                     data-target="#reservationdatetime" />
                                                 <div class="input-group-append" data-target="#reservationdatetime"
@@ -82,7 +82,7 @@
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label>CPF/CNPJ</label>
-                                            <input type="text" class="form-control" name="cpf_cnpj" id="cpf_cnpj"
+                                            <input type="text" class="form-control cpf_cnpj" name="cpf_cnpj" id="cpf_cnpj" onblur="validaCpfCnpj(this.value)"
                                                 value="{{ $account->cpf_cnpj }}" placeholder="Ex.:123.123.123-12">
                                         </div>
                                     </div>
@@ -113,7 +113,7 @@
         </div><!-- /.container-fluid -->
     </div>
     <!-- /.content -->
-    <script src="../../dist/js/editValidation.js"></script>
+    <script src="../../dist/js/EditValidation.js"></script>
 
 
 </x-app-layout>
