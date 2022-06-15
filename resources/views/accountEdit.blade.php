@@ -53,12 +53,15 @@
                                     <div class="col-md-3">
                                         <div class="form-group">
                                             <label for="data">Data de vencimento</label>
-                                            <div class="input-group date" data-target-input="nearest">
-                                                <input type="date" id="data" name="data" value="{{ $account->data }}"
+                                            <div class="input-group date" id="reservationdatetime"
+                                                data-target-input="nearest">
+                                                <input type="text" id="data" name="data"
+                                                    value="{{ \Carbon\Carbon::parse($account->data)->format('d/M/Y') }}"
                                                     class="form-control datetimepicker-input"
                                                     data-target="#reservationdatetime" />
                                                 <div class="input-group-append" data-target="#reservationdatetime"
                                                     data-toggle="datetimepicker">
+                                                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                                 </div>
                                             </div>
                                         </div>
@@ -80,7 +83,7 @@
                                         <div class="form-group">
                                             <label>CPF/CNPJ</label>
                                             <input type="text" class="form-control" name="cpf_cnpj" id="cpf_cnpj"
-                                                value="{{ $account->cpf_cpnj }}" placeholder="Ex.:123.123.123-12">
+                                                value="{{ $account->cpf_cnpj }}" placeholder="Ex.:123.123.123-12">
                                         </div>
                                     </div>
                                     <!-- /.col -->
@@ -88,7 +91,8 @@
                                         <div class="form-group">
                                             <label>Valor</label>
                                             <input type="text" name="valor" id="valor" class="form-control"
-                                                value="{{ $account->valor }}" placeholder="0,00">
+                                                value="{{ $account->valor }}"
+                                                pattern="^[R$\-\s]*[\d\.]*?([\,]\d{0,2})?\s*$" placeholder="0,00">
                                         </div>
                                     </div>
                                     <!-- /.col -->
@@ -109,118 +113,7 @@
         </div><!-- /.container-fluid -->
     </div>
     <!-- /.content -->
+    <script src="../../dist/js/editValidation.js"></script>
 
-    <script>
-        var e = $("#valor").val().replace(/\D/g, '');
-        e = (e / 100).toFixed(2) + '';
-        e = e.replace(".", ",");
-        e = e.replace(/(\d)(\d{3})(\d{3}),/g, "$1.$2.$3,");
-        e = e.replace(/(\d)(\d{3}),/g, "$1.$2,");
-        $("#valor").val(e);
-
-        $("#valor").keyup(function() {
-
-            var v = $("#valor").val().replace(/\D/g, '');
-            v = (v / 100).toFixed(2) + '';
-            v = v.replace(".", ",");
-            v = v.replace(/(\d)(\d{3})(\d{3}),/g, "$1.$2.$3,");
-            v = v.replace(/(\d)(\d{3}),/g, "$1.$2,");
-            $("#valor").val(v);
-        });
-    </script>
-    <script>
-        var tamanho = $("#cpf_cnpj").val().length;
-
-        if (tamanho <= 11) {
-            $("#cpf_cnpj").mask("999.999.999-99");
-        } else {
-            $("#cpf_cnpj").mask("99.999.999/9999-99");
-        }
-
-
-
-        $("#cpf_cnpj").keydown(function() {
-            try {
-                $("#cpf_cnpj").unmask();
-            } catch (e) {}
-
-            var tamanho = $("#cpf_cnpj").val().length;
-
-            if (tamanho < 11) {
-                $("#cpf_cnpj").mask("999.999.999-99");
-            } else {
-                $("#cpf_cnpj").mask("99.999.999/9999-99");
-            }
-
-            // ajustando foco
-            var elem = this;
-            setTimeout(function() {
-                // mudo a posição do seletor
-                elem.selectionStart = elem.selectionEnd = 10000;
-            }, 0);
-            // reaplico o valor para mudar o foco
-            var currentValue = $(this).val();
-            $(this).val('');
-            $(this).val(currentValue);
-        });
-    </script>
-    <script>
-        $(function() {
-
-            $('#cadForm').validate({
-                rules: {
-                    conta: {
-                        required: true,
-                    },
-                    tipo: {
-                        required: true
-                    },
-                    data: {
-                        required: true
-                    },
-                    fornecedor: {
-                        required: true
-                    },
-                    cpf_cnpj: {
-                        required: true
-                    },
-                    valor: {
-                        required: true
-                    },
-                },
-                messages: {
-                    conta: {
-                        required: "Preencha esse campo!",
-                    },
-                    tipo: {
-                        required: "Preencha esse campo!"
-                    },
-                    data: {
-                        required: "Preencha esse campo!"
-                    },
-                    fornecedor: {
-                        required: "Preencha esse campo!"
-                    },
-                    cpf_cnpj: {
-                        required: "Preencha esse campo!"
-                    },
-                    valor: {
-                        required: "Preencha esse campo!"
-                    },
-                },
-                errorElement: 'span',
-                errorPlacement: function(error, element) {
-                    error.addClass('invalid-feedback');
-                    element.closest('.form-group').append(error);
-                },
-                highlight: function(element, errorClass, validClass) {
-                    $(element).addClass('is-invalid');
-                },
-                unhighlight: function(element, errorClass, validClass) {
-                    $(element).removeClass('is-invalid');
-                }
-            });
-        });
-    </script>
 
 </x-app-layout>

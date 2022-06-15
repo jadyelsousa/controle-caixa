@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateRequest extends FormRequest
+class AccountRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,10 +26,10 @@ class CreateRequest extends FormRequest
         return [
             'conta' => 'required',
             'tipo' => 'required',
-            'data' => 'required|date|after_or_equal:today',
+            'data' => 'required',
             'fornecedor' => 'required',
             'cpf_cnpj' => 'required',
-            'valor' => 'required',
+            'valor' => 'required|regex:/^(\d{1,3}\.)*?(\d{1,3}),\d{2}$/',
 
         ];
     }
