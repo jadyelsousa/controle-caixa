@@ -1,8 +1,8 @@
-# Projeto de controle de fluxo de caixa
+# Projeto de controle de Contas
 
 ### Como foi feito o projeto:
 
-Projeto foi desenvolvido com framework laravel utilizando bootstrap para as visualizações. Foi utilizado laravel breeze para autenticação e Javascrip e jQuery para as validações.   
+Projeto foi desenvolvido com framework laravel utilizando bootstrap para as visualizações. Foi utilizado laravel breeze para autenticação e Javascript e jQuery para as validações.   
 
 ### Requisitos:
 
@@ -20,6 +20,4 @@ Para rodar o projeto execute os passos abaixo:
 4. Configure uma base de dados mysql no arquivo .env na raíz do projeto
 5. Depois execute o comando para executar as migrations no seu banco de dados "php artisan migrate"
 
-### Demo do site:
-Ou você pode acessar o site no link https://controledecaixa.nationbr.me/ para uma demostração.
 
